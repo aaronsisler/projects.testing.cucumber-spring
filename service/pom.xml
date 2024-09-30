@@ -3,18 +3,18 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
     <parent>
-        <groupId>com.ebsolutions.spring.junit</groupId>
-        <artifactId>spring-junit-parent</artifactId>
+        <groupId>com.ebsolutions.projects.testing.spring.cucumber</groupId>
+        <artifactId>spring-cucumber-parent</artifactId>
         <version>0.1.0</version>
     </parent>
 
-    <artifactId>spring-junit-service</artifactId>
-    <name>Spring Junit Service</name>
+    <artifactId>spring-cucumber-service</artifactId>
+    <name>Spring Cucumber Service</name>
     <packaging>${packaging}</packaging>
 
     <properties>
         <packaging>jar</packaging>
-        <start-class>com.ebsolutions.spring.junit.SpringJunitServiceApplication</start-class>
+        <start-class>com.ebsolutions.projects.testing.spring.cucumber.SpringCucumberServiceApplication</start-class>
 
         <!-- Versions: Plugins-->
 
@@ -128,11 +128,10 @@
         </dependency>
 
         <!-- StringUtils util that checks for empty strings, etc. -->
-        <!-- Version: Explicit -->
+        <!-- Version: Spring Parent -->
         <dependency>
             <groupId>org.apache.commons</groupId>
             <artifactId>commons-lang3</artifactId>
-            <!--            <version>${version.org.apache.commons.commons-lang3}</version>-->
         </dependency>
 
         <!-- Used for the validation annotations -->

@@ -9,8 +9,8 @@
         <version>3.2.5</version>
     </parent>
 
-    <groupId>com.ebsolutions.spring.junit</groupId>
-    <artifactId>spring-junit-parent</artifactId>
+    <groupId>com.ebsolutions.projects.testing.spring.cucumber</groupId>
+    <artifactId>spring-cucumber-parent</artifactId>
     <version>0.1.0</version>
     <packaging>pom</packaging>
 
@@ -74,7 +74,7 @@
                     <artifactId>openapi-generator-maven-plugin</artifactId>
                     <version>${openapi-generator-maven-plugin.version}</version>
                     <configuration>
-                        <modelPackage>com.ebsolutions.spring.junit.model</modelPackage>
+                        <modelPackage>com.ebsolutions.projects.testing.spring.cucumber.model</modelPackage>
                         <generatorName>spring</generatorName>
                         <generateApis>false</generateApis>
                         <generateSupportingFiles>false</generateSupportingFiles>
