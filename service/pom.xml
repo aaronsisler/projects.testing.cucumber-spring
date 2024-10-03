@@ -27,6 +27,7 @@
 
         <!-- Versions: Testing -->
         <junit-bom.version>5.10.3</junit-bom.version>
+        <cucumber-bom.version>7.19.0</cucumber-bom.version>
     </properties>
 
     <dependencyManagement>
@@ -46,6 +47,15 @@
                 <groupId>org.junit</groupId>
                 <artifactId>junit-bom</artifactId>
                 <version>${junit-bom.version}</version>
+                <type>pom</type>
+                <scope>import</scope>
+            </dependency>
+            <!-- Cucumber testing framework -->
+            <!-- Version: Explicit -->
+            <dependency>
+                <groupId>io.cucumber</groupId>
+                <artifactId>cucumber-bom</artifactId>
+                <version>${cucumber-bom.version}</version>
                 <type>pom</type>
                 <scope>import</scope>
             </dependency>
@@ -94,7 +104,7 @@
         <!-- START: AWS Dependencies -->
 
         <!-- AWS DynamoDB config and methods -->
-        <!-- Version: BOM -->
+        <!-- Version: AWS BOM -->
         <dependency>
             <groupId>software.amazon.awssdk</groupId>
             <artifactId>dynamodb-enhanced</artifactId>
@@ -151,6 +161,39 @@
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-test</artifactId>
+            <scope>test</scope>
+        </dependency>
+
+        <!-- Adding in Cucumber test dependencies-->
+
+        <!-- Cucumber-JVM dependency -->
+        <!-- Version: Cucumber BOM -->
+        <dependency>
+            <groupId>io.cucumber</groupId>
+            <artifactId>cucumber-java</artifactId>
+            <scope>test</scope>
+        </dependency>
+
+        <!-- JUnit and Cucumber testing -->
+        <!-- Version: Cucumber BOM -->
+        <dependency>
+            <groupId>io.cucumber</groupId>
+            <artifactId>cucumber-junit</artifactId>
+            <scope>test</scope>
+        </dependency>
+
+        <!-- Spring and Cucumber -->
+        <!-- Version: Cucumber BOM -->
+        <dependency>
+            <groupId>io.cucumber</groupId>
+            <artifactId>cucumber-spring</artifactId>
+            <scope>test</scope>
+        </dependency>
+
+        <!-- Not sure if I need this yet -->
+        <dependency>
+            <groupId>io.cucumber</groupId>
+            <artifactId>cucumber-junit-platform-engine</artifactId>
             <scope>test</scope>
         </dependency>
 
