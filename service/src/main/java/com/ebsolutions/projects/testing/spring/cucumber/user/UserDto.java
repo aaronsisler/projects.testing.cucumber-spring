@@ -1,4 +1,4 @@
-package com.ebsolutions.projects.testing.spring.cucumber.client;
+package com.ebsolutions.projects.testing.spring.cucumber.user;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -9,5 +9,5 @@ import lombok.extern.slf4j.Slf4j;
 @Slf4j
 @Builder
 @AllArgsConstructor
-public class ClientDto {
+public class UserDto {
 }

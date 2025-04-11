@@ -89,7 +89,15 @@
                     <artifactId>maven-checkstyle-plugin</artifactId>
                     <version>${checkstyle-maven-plugin.version}</version>
                     <configuration>
+                        <excludeGeneratedSources>true</excludeGeneratedSources>
+                        <consoleOutput>true</consoleOutput>
+                        <violationSeverity>warning</violationSeverity>
+                        <includeTestSourceDirectory>true</includeTestSourceDirectory>
+                        <includeTestResources>true</includeTestResources>
+                        <failOnViolation>true</failOnViolation>
+                        <failsOnError>true</failsOnError>
                         <configLocation>google_checks.xml</configLocation>
+                        <suppressionsLocation>checkstyle-suppressions.xml</suppressionsLocation>
                     </configuration>
                     <executions>
                         <execution>

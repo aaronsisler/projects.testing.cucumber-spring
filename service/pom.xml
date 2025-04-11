@@ -154,6 +154,38 @@
             <scope>test</scope>
         </dependency>
 
+        <!-- Needed for running tests in Junit -->
+        <!-- Version: JUnit BOM -->
+        <dependency>
+            <groupId>org.junit.platform</groupId>
+            <artifactId>junit-platform-suite</artifactId>
+            <scope>test</scope>
+        </dependency>
+
+        <!-- Testing linkage between Cucumber and Spring context -->
+        <!-- Version: Cucumber BOM -->
+        <dependency>
+            <groupId>io.cucumber</groupId>
+            <artifactId>cucumber-spring</artifactId>
+            <scope>test</scope>
+        </dependency>
+
+        <!-- Testing linkage between Cucumber and Java -->
+        <!-- Version: Cucumber BOM -->
+        <dependency>
+            <groupId>io.cucumber</groupId>
+            <artifactId>cucumber-java</artifactId>
+            <scope>test</scope>
+        </dependency>
+
+        <!-- Testing linkage between Cucumber and JUnit -->
+        <!-- Version: Cucumber BOM -->
+        <dependency>
+            <groupId>io.cucumber</groupId>
+            <artifactId>cucumber-junit-platform-engine</artifactId>
+            <scope>test</scope>
+        </dependency>
+
         <!-- END: Testing Dependencies -->
     </dependencies>
 
@@ -171,6 +203,35 @@
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-maven-plugin</artifactId>
             </plugin>
+            <!-- By default, surefire is running so setting skipTests to true -->
+            <!-- We want to run tests during integration-test phase using failsafe plugin -->
+            <!-- Version: Parent POM PIM -->
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-surefire-plugin</artifactId>
+                <configuration>
+                    <skipTests>true</skipTests>
+                </configuration>
+            </plugin>
+            <!-- Used for running the Cucumber feature tests -->
+            <!-- Version: Parent POM PIM -->
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-failsafe-plugin</artifactId>
+                <executions>
+                    <execution>
+                        <id>mocked-integration-tests</id>
+                        <goals>
+                            <goal>integration-test</goal>
+                        </goals>
+                        <configuration>
+                            <includes>
+                                <include>**/MockedIntegrationFeatures.java</include>
+                            </includes>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
             <!-- Generates Java classes from OpenAPI contracts -->
             <!-- Version: Explicit: Parent Pom -->
             <plugin>
@@ -178,12 +239,12 @@
                 <artifactId>openapi-generator-maven-plugin</artifactId>
                 <executions>
                     <execution>
-                        <id>models-client</id>
+                        <id>models-user</id>
                         <goals>
                             <goal>generate</goal>
                         </goals>
                         <configuration>
-                            <inputSpec>${pom.parent.basedir}/contracts/client.yaml</inputSpec>
+                            <inputSpec>${pom.parent.basedir}/contracts/user.yaml</inputSpec>
                         </configuration>
                     </execution>
                 </executions>

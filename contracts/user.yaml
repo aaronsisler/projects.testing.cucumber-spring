@@ -5,16 +5,17 @@ info:
 servers:
   - url: http://localhost
 paths:
-  /clients:
+  /users:
     post:
-      operationId: clientsPOST
+      operationId: userPOST
       requestBody:
         required: true
         content:
           application/json:
             schema:
               type: array
-              $ref: "#/components/schemas/Client"
+              items:
+                $ref: "#/components/schemas/User"
       responses:
         200:
           description: OK
@@ -22,18 +23,19 @@ paths:
             application/json:
               schema:
                 type: array
-                $ref: "#/components/schemas/Client"
+                items:
+                  $ref: "#/components/schemas/User"
         '5XX':
           description: Server Error
 
 components:
   schemas:
-    Client:
+    User:
       type: object
       required:
         - name
       properties:
-        clientId:
+        userId:
           type: string
         name:
           type: string
