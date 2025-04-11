@@ -6,7 +6,7 @@
     <parent>
         <groupId>org.springframework.boot</groupId>
         <artifactId>spring-boot-starter-parent</artifactId>
-        <version>3.2.5</version>
+        <version>3.4.4</version>
     </parent>
 
     <groupId>com.ebsolutions.projects.testing.spring.cucumber</groupId>
@@ -19,23 +19,63 @@
     </modules>
 
     <properties>
-        <java.version>17</java.version>
+        <java.version>21</java.version>
         <maven.compiler.source>${java.version}</maven.compiler.source>
         <maven.compiler.target>${java.version}</maven.compiler.target>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
 
         <!-- Versions: Plugins -->
-        <maven-surefire-plugin.version>3.2.5</maven-surefire-plugin.version>
-        <openapi-generator-maven-plugin.version>7.5.0</openapi-generator-maven-plugin.version>
         <checkstyle-maven-plugin.version>3.5.0</checkstyle-maven-plugin.version>
+        <maven-failsafe-plugin.version>3.5.2</maven-failsafe-plugin.version>
+        <maven-surefire-plugin.version>3.5.2</maven-surefire-plugin.version>
+        <openapi-generator-maven-plugin.version>7.11.0</openapi-generator-maven-plugin.version>
+        <spring-boot-maven-plugin.version>3.4.2</spring-boot-maven-plugin.version>
 
         <!-- Versions: Dependencies -->
+        <jackson-databind-nullable.version>0.2.6</jackson-databind-nullable.version>
+        <springdoc-openapi-starter-webmvc-ui.version>2.8.4</springdoc-openapi-starter-webmvc-ui.version>
+
+        <!-- Versions: Testing Dependencies -->
+        <cucumber-bom.version>7.20.1</cucumber-bom.version>
+        <junit-bom.version>5.11.4</junit-bom.version>
 
     </properties>
 
     <dependencyManagement>
         <dependencies>
+            <!-- Used for Swagger UI and Open API annotations -->
+            <!-- Version: Explicit -->
+            <dependency>
+                <groupId>org.springdoc</groupId>
+                <artifactId>springdoc-openapi-starter-webmvc-ui</artifactId>
+                <version>${springdoc-openapi-starter-webmvc-ui.version}</version>
+            </dependency>
+            <!-- Used for the validation annotations -->
+            <!-- Version: Explicit -->
+            <dependency>
+                <groupId>org.openapitools</groupId>
+                <artifactId>jackson-databind-nullable</artifactId>
+                <version>${jackson-databind-nullable.version}</version>
+            </dependency>
+            <!-- Used for JUnit and Mockito testing libs-->
+            <!-- Version: Explicit -->
+            <dependency>
+                <groupId>org.junit</groupId>
+                <artifactId>junit-bom</artifactId>
+                <version>${junit-bom.version}</version>
+                <type>pom</type>
+                <scope>import</scope>
+            </dependency>
+            <!-- Used for Cucumber BDD testing libs-->
+            <!-- Version: Explicit -->
+            <dependency>
+                <groupId>io.cucumber</groupId>
+                <artifactId>cucumber-bom</artifactId>
+                <version>${cucumber-bom.version}</version>
+                <type>pom</type>
+                <scope>import</scope>
+            </dependency>
         </dependencies>
     </dependencyManagement>
 
@@ -67,6 +107,40 @@
                     <version>${maven-surefire-plugin.version}</version>
                 </plugin>
 
+                <!-- Used for running the Cucumber tests and finding feature files -->
+                <!-- Version: Explicit -->
+                <plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-failsafe-plugin</artifactId>
+                    <version>${maven-failsafe-plugin.version}</version>
+                    <configuration>
+                        <testFailureIgnore>true</testFailureIgnore>
+                    </configuration>
+                </plugin>
+
+                <!-- Gives the actuator/info API build information -->
+                <!-- Version: Explicit -->
+                <plugin>
+                    <groupId>org.springframework.boot</groupId>
+                    <artifactId>spring-boot-maven-plugin</artifactId>
+                    <version>${spring-boot-maven-plugin.version}</version>
+                    <configuration>
+                        <excludes>
+                            <exclude>
+                                <groupId>org.projectlombok</groupId>
+                                <artifactId>lombok</artifactId>
+                            </exclude>
+                        </excludes>
+                    </configuration>
+                    <executions>
+                        <execution>
+                            <goals>
+                                <goal>build-info</goal>
+                            </goals>
+                        </execution>
+                    </executions>
+                </plugin>
+
                 <!-- Generates Java classes from OpenAPI contracts -->
                 <!-- Version: Explicit -->
                 <plugin>
@@ -87,20 +161,13 @@
                         </configOptions>
                         <!-- typeMappings links the contract (left side) to the right side -->
                         <typeMappings>
-                            <!-- This Pascal format is the standard for baked in OpenAPI supported types -->
-                            <typeMapping>DateTime=LocalDateTime</typeMapping>
                             <!-- Kebab format is the format for custom mappings  -->
                             <typeMapping>local-date=LocalDate</typeMapping>
-                            <typeMapping>local-time=LocalTime</typeMapping>
-                            <typeMapping>day-of-week=DayOfWeek</typeMapping>
                         </typeMappings>
                         <!-- importMappings then links the typeMapping (left side) to a Java import (right side) -->
                         <importMappings>
                             <!-- Left side in importMappings maps to the right side in typeMappings -->
-                            <importMapping>LocalDateTime=java.time.LocalDateTime</importMapping>
                             <importMapping>LocalDate=java.time.LocalDate</importMapping>
-                            <importMapping>LocalTime=java.time.LocalTime</importMapping>
-                            <importMapping>DayOfWeek=java.time.DayOfWeek</importMapping>
                         </importMappings>
                     </configuration>
                 </plugin>

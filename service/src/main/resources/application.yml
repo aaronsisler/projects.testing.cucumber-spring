@@ -16,6 +16,3 @@ spring:
   config:
     activate:
       on-profile: local, default
-database:
-  tableName: SERVICES_SPRING_JUNIT_LOCAL
-  endpoint: http://localhost:4566

@@ -37,9 +37,3 @@ components:
           type: string
         name:
           type: string
-        createdOn:
-          type: string
-          format: date-time
-        lastUpdatedOn:
-          type: string
-          format: date-time

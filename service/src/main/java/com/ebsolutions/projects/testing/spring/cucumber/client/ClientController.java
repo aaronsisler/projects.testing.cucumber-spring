@@ -1,7 +1,6 @@
 package com.ebsolutions.projects.testing.spring.cucumber.client;
 
 import com.ebsolutions.projects.testing.spring.cucumber.model.Client;
-import com.ebsolutions.projects.testing.spring.cucumber.shared.exception.DataProcessingException;
 import jakarta.validation.ConstraintViolation;
 import jakarta.validation.ConstraintViolationException;
 import jakarta.validation.Valid;
@@ -32,8 +31,8 @@ public class ClientController {
   public ResponseEntity<?> post(@RequestBody @NotEmpty List<@Valid Client> clients) {
     try {
       return ResponseEntity.ok(clientService.create(clients));
-    } catch (DataProcessingException dpe) {
-      return ResponseEntity.internalServerError().body(dpe.getMessage());
+    } catch (Exception exception) {
+      return ResponseEntity.internalServerError().body(exception.getMessage());
     }
   }
 
@@ -43,8 +42,8 @@ public class ClientController {
       List<Client> clients = clientService.readAll();
 
       return !clients.isEmpty() ? ResponseEntity.ok(clients) : ResponseEntity.noContent().build();
-    } catch (DataProcessingException dpe) {
-      return ResponseEntity.internalServerError().body(dpe.getMessage());
+    } catch (Exception exception) {
+      return ResponseEntity.internalServerError().body(exception.getMessage());
     }
   }
 
